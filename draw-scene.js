@@ -15,7 +15,7 @@ function drawScene(gl, programInfo, buffers, cubeRotation) {
   // and we only want to see objects between 0.1 units
   // and 100 units away from the camera.
 
-  const fieldOfView = (45 * Math.PI) / 180; // in radians
+  const fieldOfView = (60 * Math.PI) / 180; // in radians
   const aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
   const zNear = 0.1;
   const zFar = 100.0;
@@ -28,6 +28,17 @@ function drawScene(gl, programInfo, buffers, cubeRotation) {
   // Set the drawing position to the "identity" point, which is
   // the center of the scene.
   const modelViewMatrix = mat4.create();
+
+  var lookAtMatrix = mat4.create();
+  var perspectiveMatrix = mat4.create();
+  let eye=vec3.fromValues(0,-8,3);
+  let center=vec3.fromValues(0,-5,0);
+  let up=vec3.fromValues(0,-1,0);
+  mat4.lookAt(lookAtMatrix,eye,center,up);
+  mat4.multiply(
+    modelViewMatrix,
+    lookAtMatrix,
+    modelViewMatrix);
 
   // Now move the drawing position a bit to where we want to
   // start drawing the square.
@@ -55,7 +66,7 @@ function drawScene(gl, programInfo, buffers, cubeRotation) {
     0, // amount to rotate in radians
     [1, 0, 0]
   ); // axis to rotate around (X)
-
+  
   // Tell WebGL how to pull out the positions from the position
   // buffer into the vertexPosition attribute.
   setPositionAttribute(gl, buffers, programInfo);
