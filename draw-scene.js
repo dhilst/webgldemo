@@ -30,9 +30,8 @@ function drawScene(gl, programInfo, buffers, cubeRotation) {
   const modelViewMatrix = mat4.create();
 
   var lookAtMatrix = mat4.create();
-  var perspectiveMatrix = mat4.create();
-  let eye=vec3.fromValues(0,-8,3);
-  let center=vec3.fromValues(0,-5,0);
+  let eye=vec3.fromValues(0,-3,3);
+  let center=vec3.fromValues(0,0,0);
   let up=vec3.fromValues(0,-1,0);
   mat4.lookAt(lookAtMatrix,eye,center,up);
   mat4.multiply(
@@ -45,7 +44,7 @@ function drawScene(gl, programInfo, buffers, cubeRotation) {
   mat4.translate(
     modelViewMatrix, // destination matrix
     modelViewMatrix, // matrix to translate
-    [-0.0, 0.0, -6.0]
+    [-0.0, 0.0, 0.0]
   ); // amount to translate
 
   mat4.rotate(
@@ -66,6 +65,7 @@ function drawScene(gl, programInfo, buffers, cubeRotation) {
     0, // amount to rotate in radians
     [1, 0, 0]
   ); // axis to rotate around (X)
+
   
   // Tell WebGL how to pull out the positions from the position
   // buffer into the vertexPosition attribute.
